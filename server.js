@@ -1,23 +1,34 @@
+const path = require('path');
 const express = require('express');
-require('dotenv').config(); 
-const port = process.env.PORT || 5000; 
-const connectDB = require('./config/db'); 
+const cors = require('cors');
+require('dotenv').config();
+const port = process.env.PORT || 5000;
+const connectDB = require('./config/db');
 
-
-connectDB(); 
+connectDB();
 
 const app = express();
 
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: false })); 
+// Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => { 
-    res.json({ message: 'Welcome to the RandomIdeas API' });
+// Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// cors middleware
+app.use(
+  cors({
+    origin: ['http://localhost:5000', 'http://localhost:3000'],
+    credentials: true,
+  })
+);
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to the RandomIdeas API' });
 });
 
-const ideasRouter = require('./routes/ideas'); 
-app.use('/api/ideas', ideasRouter);  
+const ideasRouter = require('./routes/ideas');
+app.use('/api/ideas', ideasRouter);
 
-
-
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () => console.log(`Server listening on port ${port}`));

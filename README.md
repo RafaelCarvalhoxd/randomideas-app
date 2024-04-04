@@ -1,12 +1,20 @@
-# RandomIdeas
+# RandomIdeas App
 
-This is a REST API for sharing random ideas.
+This is a fullstack application for sharing random ideas. 
+
+This app includes a Node.js/Express REST API that uses MongoDB for a database. The client-side is built with Webpack.
+
+<img src="assets/screen.png">
 
 ## Usage
 
 ### Install Dependencies
 
+Install dependencies on the front-end and back-end
+
 ```bash
+npm install
+cd client
 npm install
 ```
 
@@ -24,9 +32,27 @@ npm run dev (Nodemon)
 
 Visit `http://localhost:5000`
 
+### Front-end/Webpack Dev Server
+
+```bash
+cd client
+npm run dev
+```
+
+Visit `http://localhost:3000`
+
+To build front-end production files
+
+```bash
+cd client
+npm run build
+```
+
+The production build will be put into the `public` folder, which is the Express static folder.
+
 ### Environment Variables
 
-Add your MongoDB URI to the `.env` file.
+Rename `.env-example` to `.env` and add your MongoDB URI to the `.env` file.
 
 ```
 MONGO_URI=your_mongodb_uri
